@@ -1,0 +1,101 @@
+@import "tailwindcss";
+
+@variant dark (&:where(.dark, .dark *));
+
+/* ── CSS custom properties ─────────────────────────────────────── */
+@layer base {
+  :root {
+    --sidebar-width: 240px;
+    --sidebar-collapsed: 64px;
+    color-scheme: light;
+  }
+
+  .dark {
+    color-scheme: dark;
+  }
+
+  * {
+    box-sizing: border-box;
+    /* Smooth colour transitions on every element when theme toggles */
+    transition-property: background-color, border-color, color;
+    transition-duration: 200ms;
+    transition-timing-function: ease;
+  }
+
+  *[class*="animate-"],
+  *[class*="motion"],
+  canvas,
+  svg {
+    transition: none;
+  }
+
+  html {
+    font-family: 'DM Sans', 'Segoe UI', system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    background-color: #f4f4f5;
+    color: #09090b;
+    margin: 0;
+    min-height: 100vh;
+  }
+
+  .dark body {
+    background-color: #09090b;
+    color: #fafafa;
+  }
+
+  /* Thin scrollbars */
+  ::-webkit-scrollbar { width: 4px; height: 4px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: #d4d4d8; border-radius: 9999px; }
+  .dark ::-webkit-scrollbar-thumb { background: #3f3f46; }
+
+  :focus-visible {
+    outline: 2px solid #6366f1;
+    outline-offset: 2px;
+  }
+}
+
+@keyframes shimmer {
+  0%   { background-position: -200% 0; }
+  100% { background-position:  200% 0; }
+}
+
+/* Respect reduced motion — show static skeleton instead */
+@media (prefers-reduced-motion: no-preference) {
+  .skeleton {
+    animation: shimmer 1.5s infinite;
+  }
+}
+
+.skeleton {
+  background: linear-gradient(90deg, #e4e4e7 25%, #f1f1f1 50%, #e4e4e7 75%);
+  background-size: 200% 100%;
+  border-radius: 6px;
+  /* Fallback when animation is off */
+  background-color: #e4e4e7;
+}
+
+.dark .skeleton {
+  background: linear-gradient(90deg, #27272a 25%, #3f3f46 50%, #27272a 75%);
+  background-size: 200% 100%;
+  background-color: #27272a;
+}
+@media (prefers-reduced-motion: reduce) {
+  /* Tell Framer Motion to skip transitions by overriding transform/opacity */
+  [data-framer-motion] {
+    transition: none !important;
+    animation: none !important;
+  }
+}
+
+.recharts-tooltip-wrapper {
+  outline: none !important;
+}
+
+.tabular-nums {
+  font-variant-numeric: tabular-nums;
+}
