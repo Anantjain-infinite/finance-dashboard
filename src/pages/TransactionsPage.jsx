@@ -53,7 +53,7 @@ export default function TransactionsPage() {
             </div>
 
             {/* Action buttons — always right-aligned */}
-            <div className="flex items-center gap-2 flex-shrink-0 pt-0.5">
+            <div className="flex items-center gap-2 shrink-0 pt-0.5">
               <ExportButton data={data} />
               <RoleGuard allowedRoles={[ROLES.ADMIN]}>
                 <button
